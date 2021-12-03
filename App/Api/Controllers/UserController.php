@@ -95,11 +95,6 @@ class UserController
         Helper::apiResponse("Authenticated", "auth_token", $token);
     }
 
-    public function teste()
-    {
-        \Helper::apiResponse("Foi");
-    }
-
     public function logout()
     {
         session_unset();
