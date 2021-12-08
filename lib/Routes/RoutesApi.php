@@ -7,7 +7,7 @@ SimpleRouter::group(['namespace' => 'App\Api\Controllers', 'prefix' => '/api'], 
     SimpleRouter::post('/users/create', [\App\Api\Controllers\UserController::class, 'create']);
     SimpleRouter::post('/logout', [\App\Api\Controllers\UserController::class, 'logout']);
 
-    SimpleRouter::group(['middleware' => App\Api\Middlewares\AuthMiddleware::class], function () {
+    SimpleRouter::group(['middleware' => App\Api\Middlewares\AuthMiddlewareApi::class], function () {
         SimpleRouter::group(['prefix' => '/transactions'], function() {
             SimpleRouter::post('/deposit', [\App\Api\Controllers\TransactionController::class, 'deposit']);
             SimpleRouter::post('/withdraw', [\App\Api\Controllers\TransactionController::class, 'withdraw']);

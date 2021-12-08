@@ -2,20 +2,12 @@
 
 namespace App\Api\DI;
 
-use App\Api\Models\Transaction;
-use App\Api\Models\UserAddress;
-use App\Api\Repositories\Implementations\TransactionsRepository;
-use App\Api\Repositories\Implementations\UsersAddressRepository;
-use App\Api\Services\TransactionService;
-use App\Api\Services\TransactionsService;
-use App\Api\Services\UserAddressService;
-use Jenssegers\Blade\Blade;
 use PDO;
 use DI\Container;
 use DI\ContainerBuilder;
 use function DI\factory;
 use Psr\Container\ContainerInterface;
-
+use Jenssegers\Blade\Blade;
 
 
 use App\Api\Db\DBConnection;
@@ -24,6 +16,11 @@ use App\Api\Models\User;
 use App\Api\Repositories\Implementations\UsersRepository;
 use App\Api\Services\UserService;
 use App\Frontend\Views\ViewManager;
+use App\Api\Models\Transaction;
+use App\Api\Models\UserAddress;
+use App\Api\Repositories\Implementations\TransactionsRepository;
+use App\Api\Repositories\Implementations\UsersAddressRepository;
+use App\Api\Services\TransactionService;
 
 
 class Builder
@@ -84,14 +81,6 @@ class Builder
 
             'Transaction' => factory(function (ContainerInterface $c) {
                 return new Transaction();
-            }),
-
-            'ViewManager' => factory(function (ContainerInterface $c) {
-                return new ViewManager($c->get('Blade'));
-            }),
-
-            'Blade' => factory(function () {
-                return new Blade(__DIR__ . '/../../Frontend/Views' , __DIR__ . '/../../Frontend/Views/cache');
             }),
         ]);
 

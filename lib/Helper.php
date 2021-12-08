@@ -137,6 +137,65 @@ use Pecee\Http\Request;
 	}
 
      /**
+      * getApiConnection
+      *
+      * @param  string $endpoint
+      * @param  array $data
+      * @return mixed
+      */
+     public static function getApiConnection(string $endpoint, array $data, bool $returnTransfer = true)
+     {
+         $url =  'http://' . $_SERVER['HTTP_HOST'] . "/api" . $endpoint;
+
+         try {
+             $curl_handler = curl_init($url);
+
+             // Check if initialization had gone wrong*
+             if ($curl_handler === false) {
+                 throw new Exception('Failed to initialize');
+             }
+
+             $request_body = json_encode($data);
+
+             if(self::hasSession()) {
+                 curl_setopt(
+                     $curl_handler,
+                     CURLOPT_HTTPHEADER,
+                     [
+                         'Content-Type: application/json',
+                         'Authorization: Bearer ' . $_SESSION['authentication_token']
+                     ]
+                 );
+             } else {
+                 curl_setopt($curl_handler, CURLOPT_HTTPHEADER, ['Content-Type: application/json']);
+             }
+
+             curl_setopt($curl_handler, CURLOPT_POST, true);
+             curl_setopt($curl_handler, CURLOPT_POSTFIELDS, $request_body);
+             curl_setopt($curl_handler, CURLOPT_RETURNTRANSFER, true);
+
+             $result = curl_exec($curl_handler);
+
+             // Check the return value of curl_exec()
+             if ($result === false) {
+                 throw new Exception(curl_error($curl_handler), curl_errno($curl_handler));
+             }
+
+             curl_close($curl_handler);
+
+             if($returnTransfer) {
+                 $json = json_decode($result);
+                 return $json;
+             }
+         } catch (Exception $e) {
+             trigger_error(sprintf(
+                 "Curl failed with error #%d: %s",
+                 $e->getCode(), $e->getMessage()),
+                 E_USER_ERROR);
+         }
+     }
+
+     /**
       * apiResponse
       *
       * Returns the base response array. Can also receive 2 optional parameters to set additional data
@@ -172,7 +231,6 @@ use Pecee\Http\Request;
       */
      public static function hasSession()
      {
-
          if(isset($_SESSION['acc_number']) && isset($_SESSION['authentication_token'])) {
              return true;
          } else {
@@ -180,6 +238,30 @@ use Pecee\Http\Request;
          }
      }
 
+
+     public static function getUserBalance()
+     {
+         if(self::hasSession()) {
+             $user = self::getContainer('User');
+
+             $acc = $user->selectDataFrom('acc_number', $_SESSION['acc_number']);
+
+             $balance = $acc[0]->balance;
+
+             return $balance;
+         }
+     }
+
+     public static function getUserTransactions()
+     {
+         if(self::hasSession()) {
+             $transaction = self::getContainer('Transaction');
+
+             $transactions = $transaction->selectDataFrom('acc_number', $_SESSION['acc_number']);
+
+             return  $transactions;
+         }
+     }
  }
     
 

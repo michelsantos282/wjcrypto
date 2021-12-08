@@ -12,42 +12,23 @@ class AuthMiddleware implements IMiddleware
 
     public function __construct()
     {
-        $this->user = \Helper::getContainer("User");
+        $this->user = \Helper::getContainer('User');
     }
 
-    /**
-     * Receives a request and check if bearer token is valid and belongs to some user
-     * @param Request $request
-     */
     public function handle(Request $request): void
     {
-        $authentication_header = $request->getHeader('authorization');
-        $authentication_token = substr($authentication_header, 7);
+        $authentication_token = $_SESSION['authentication_token'];
 
-        try {
-            $user = $this->user->selectDataFrom('auth_token', $authentication_token);
+        $userData = $this->user->selectDataFrom('acc_number', \Helper::encrypt_data($_SESSION['acc_number']));
 
-            if($user != false) {
-                if(empty($authentication_token) || $authentication_token != $user[0]->auth_token) {
-                    header('WWW-Authenticate: Bearer realm="Access Denied"');
-                    http_response_code(401);
-
-                    \Helper::apiResponse('Acesso negado - Token vazio ou incorreto');
-                } else {
-                    header('WWW-Authenticate: Bearer ' . $authentication_token);
-
-                    http_response_code(200);
-                }
-            } else {
-                throw new \Exception('Nenhum usuário corresponde com o token informado.');
-            }
-        } catch (\Exception $e) {
-            $message = $e->getMessage();
-
+        if(empty($authentication_token) || $authentication_token != $userData[0]->auth_token) {
             header('WWW-Authenticate: Bearer realm="Access Denied"');
             http_response_code(401);
 
-            \Helper::apiResponse('Acesso negado - ' . $message);
+            \Helper::response()->redirect('/');
+        } else {
+            header('WWW-Authenticate: Bearer ' . $authentication_token);
+            http_response_code(200);
         }
     }
 }

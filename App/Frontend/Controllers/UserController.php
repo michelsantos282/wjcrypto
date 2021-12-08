@@ -22,7 +22,28 @@ class UserController
 
     public function login()
     {
-        return $this->view->render("pages/login");
+        $data = [
+            'acc_number' => filter_input(INPUT_POST, 'acc_number', FILTER_SANITIZE_STRING),
+            'password' => filter_input(INPUT_POST, 'password', FILTER_SANITIZE_STRING)
+        ];
+
+        $result = \Helper::getApiConnection('/users/authenticate', $data);
+
+        if($result->message == "Authenticated") {
+            $_SESSION['acc_number'] = $data['acc_number'];
+            $_SESSION['authentication_token'] = $result->auth_token;
+
+            \Helper::response()->redirect('/');
+        } else {
+            $this->showHomePage(['message' => $result->message]);
+        }
+    }
+
+    public function logout()
+    {
+        session_unset();
+        session_destroy();
+        \Helper::response()->redirect('/');
     }
 
     public function create()
@@ -32,9 +53,6 @@ class UserController
 
     public function store()
     {
-
-        $client = new Client();
-
         $data = [
             'user' => [
                 'name' => filter_input(INPUT_POST, 'name', FILTER_SANITIZE_STRING),
@@ -55,5 +73,41 @@ class UserController
             ]
         ];
 
+        $result = \Helper::getApiConnection('/users/create', $data);
+
+        if(!empty($data) && \Helper::request()->getMethod() == 'post'){
+            unset($data);
+        }
+
+        $this->showRegisterPage([
+            'acc_number' => $result->acc_number,
+            'message' => $result->message
+        ]);
+
     }
+
+    public function showRegisterPage(?array $params = null)
+    {
+        if(!empty($params)) {
+            echo $this->view->render('pages/register', $params);
+        } else {
+            echo $this->view->render('pages/register');
+        }
+    }
+
+    public function showHomePage(?array $params = null)
+    {
+        $session = \Helper::hasSession();
+        if($session) {
+            $transactions = \Helper::getUserTransactions();
+
+            echo $this->view->render('pages/home', ['balance' => 500.00]);
+        } elseif(!empty($params)) {
+            echo $this->view->render('pages/login', $params);
+        } else {
+            echo $this->view->render('pages/login');
+        }
+    }
+
+
 }
