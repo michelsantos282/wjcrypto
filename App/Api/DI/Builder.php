@@ -9,6 +9,7 @@ use App\Api\Repositories\Implementations\UsersAddressRepository;
 use App\Api\Services\TransactionService;
 use App\Api\Services\TransactionsService;
 use App\Api\Services\UserAddressService;
+use Jenssegers\Blade\Blade;
 use PDO;
 use DI\Container;
 use DI\ContainerBuilder;
@@ -22,6 +23,7 @@ use App\Api\Models\ModelManager;
 use App\Api\Models\User;
 use App\Api\Repositories\Implementations\UsersRepository;
 use App\Api\Services\UserService;
+use App\Frontend\Views\ViewManager;
 
 
 class Builder
@@ -84,6 +86,13 @@ class Builder
                 return new Transaction();
             }),
 
+            'ViewManager' => factory(function (ContainerInterface $c) {
+                return new ViewManager($c->get('Blade'));
+            }),
+
+            'Blade' => factory(function () {
+                return new Blade(__DIR__ . '/../../Frontend/Views' , __DIR__ . '/../../Frontend/Views/cache');
+            }),
         ]);
 
         return self::$builder->build();

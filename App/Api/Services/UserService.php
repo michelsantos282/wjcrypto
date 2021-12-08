@@ -83,10 +83,6 @@ class UserService
         //Criar token
         $token = $this->repository->createToken(base64_encode(random_bytes(16)), $user->acc_number);
 
-
-        $_SESSION["acc_number"] = \Helper::decrypt_data($user->acc_number);
-        $_SESSION["authentication_token"] = $user->auth_token;
-
         if(!isset($token))
         {
             throw new \Exception("Algo deu Errado!", 500);

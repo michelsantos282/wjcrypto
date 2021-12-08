@@ -163,7 +163,6 @@ use Pecee\Http\Request;
 
          self::response()->json($data, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
      }
-
      /**
       * hasSession
       *

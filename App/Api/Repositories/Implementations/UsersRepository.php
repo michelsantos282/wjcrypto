@@ -96,13 +96,4 @@ class UsersRepository implements IUsersRepository
             return $token;
         }
     }
-
-
-    public function update(string $accNumber, array $data)
-    {
-    }
-
-    public function delete(int $accNumber)
-    {
-    }
 }
