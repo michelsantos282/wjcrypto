@@ -2,6 +2,8 @@
 
 namespace App\Frontend\Controllers;
 
+
+
 use Jenssegers\Blade\Blade;
 
 class UserController
@@ -48,7 +50,12 @@ class UserController
 
     public function create()
     {
-        return $this->view->render("pages/register");
+        $session = \Helper::hasSession();
+        if($session) {
+            \Helper::response()->redirect('/');
+        } else {
+            return $this->view->render("pages/register");
+        }
     }
 
     public function store()
@@ -99,11 +106,14 @@ class UserController
     {
         $session = \Helper::hasSession();
         if($session) {
-            $transactions = \Helper::getUserTransactions();
+            echo $this->view->render('pages/home', [
+                'balance' => \Helper::getUserBalance(),
+                'transactions' => \Helper::getUserTransactions()
+            ]);
 
-            echo $this->view->render('pages/home', ['balance' => 500.00]);
         } elseif(!empty($params)) {
             echo $this->view->render('pages/login', $params);
+
         } else {
             echo $this->view->render('pages/login');
         }

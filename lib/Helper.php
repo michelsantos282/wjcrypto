@@ -244,7 +244,7 @@ use Pecee\Http\Request;
          if(self::hasSession()) {
              $user = self::getContainer('User');
 
-             $acc = $user->selectDataFrom('acc_number', $_SESSION['acc_number']);
+             $acc = $user->selectDataFrom('acc_number', \Helper::encrypt_data($_SESSION['acc_number']));
 
              $balance = $acc[0]->balance;
 
@@ -257,7 +257,8 @@ use Pecee\Http\Request;
          if(self::hasSession()) {
              $transaction = self::getContainer('Transaction');
 
-             $transactions = $transaction->selectDataFrom('acc_number', $_SESSION['acc_number']);
+             $transactions = $transaction->selectDataFrom('from_acc', \Helper::encrypt_data($_SESSION['acc_number']));
+
 
              return  $transactions;
          }

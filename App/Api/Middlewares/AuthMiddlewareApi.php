@@ -22,6 +22,7 @@ class AuthMiddlewareApi implements IMiddleware
     public function handle(Request $request): void
     {
         $authentication_header = $request->getHeader('authorization');
+
         $authentication_token = substr($authentication_header, 7);
 
         try {

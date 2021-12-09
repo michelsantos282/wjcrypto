@@ -82,6 +82,14 @@ class Builder
             'Transaction' => factory(function (ContainerInterface $c) {
                 return new Transaction();
             }),
+
+            'ViewManager' => factory(function (ContainerInterface $c) {
+                return new ViewManager($c->get('Blade'));
+            }),
+
+            'Blade' => factory(function () {
+                return new Blade(__DIR__ . '/../../Frontend/Views' , __DIR__ . '/../../Frontend/Views/cache');
+            }),
         ]);
 
         return self::$builder->build();

@@ -16,11 +16,6 @@ class TransactionService
 
     public function deposit(array $depositData)
     {
-        //Verify if user is Logged
-        if(!\Helper::hasSession()){
-            throw new \Exception("Você deve logar para realizar uma transação", 401);
-        }
-
         //Get user current balance
         $user = $this->repository->getUser($depositData["acc_number"]);
 
@@ -36,11 +31,6 @@ class TransactionService
 
     public function withdraw(array $depositData)
     {
-        //Verify if user is Logged
-        if(!\Helper::hasSession()){
-            throw new \Exception("Você deve logar para realizar uma transação", 401);
-        }
-
         //Get user current balance
         $user = $this->repository->getUser($depositData["acc_number"]);
 
@@ -59,11 +49,6 @@ class TransactionService
 
     public function transfer(array $transferData)
     {
-        //Verify if user is Logged
-        if(!\Helper::hasSession()){
-            throw new \Exception("Você deve logar para realizar uma transação", 401);
-        }
-
         //Get user current balance
         $userFromAcc = $this->repository->getUser($transferData["acc_number"]);
         $userToAcc = $this->repository->getUser($transferData["to_acc"]);
@@ -73,7 +58,7 @@ class TransactionService
         }
 
         if(!$userToAcc) {
-            throw new \Exception("O Usuario para o qual você quer realziar uma transferência não foi encontrado", 404);
+            throw new \Exception("O Usuario para o qual você quer realizar uma transferência não foi encontrado", 404);
         }
 
         if($transferData["amount"] > $userFromAcc->balance) {

@@ -21,8 +21,6 @@ class TransactionController
             "amount" => $request_content->amount,
         ];
 
-        var_dump("AQui");
-
         try {
             $this->service->deposit($depositData);
         } catch (\Exception $e) {
@@ -33,7 +31,7 @@ class TransactionController
         }
 
         http_response_code(201);
-        \Helper::apiResponse("Deposito Realizado com Sucesso!");
+        \Helper::apiResponse("Deposito Realizado com Sucesso!", "transactionData", $depositData);
     }
 
     public function withdraw()

@@ -89,7 +89,6 @@ class Model extends ModelManager implements ModelInterface
     {
         Builder::buildContainer()->get('ModelManager');
 
-
         try {
             self::checkIfColumnExists($column);
 

@@ -10,9 +10,15 @@ SimpleRouter::post('/cadastro', [\App\Frontend\Controllers\UserController::class
 
 SimpleRouter::group(['middleware' => App\Api\Middlewares\AuthMiddleware::class], function () {
     SimpleRouter::get('/logout', [\App\Frontend\Controllers\UserController::class, 'logout']);
-    SimpleRouter::get('/transferencia', [\App\Frontend\Controllers\TransactionController::class, 'transfer']);
-    SimpleRouter::get('/deposito', [\App\Frontend\Controllers\TransactionController::class, 'deposit']);
-    SimpleRouter::get('/saque', [\App\Frontend\Controllers\TransactionController::class, 'withdraw']);
+
+    SimpleRouter::get('/transferencia', [\App\Frontend\Controllers\TransactionController::class, 'showTransferPage']);
+    SimpleRouter::post('/transferencia', [\App\Frontend\Controllers\TransactionController::class, 'transferPost']);
+
+    SimpleRouter::get('/deposito', [\App\Frontend\Controllers\TransactionController::class, 'showDepositPage']);
+    SimpleRouter::post('/deposito', [\App\Frontend\Controllers\TransactionController::class, 'depositPost']);
+
+    SimpleRouter::get('/saque', [\App\Frontend\Controllers\TransactionController::class, 'showWithdrawPage']);
+    SimpleRouter::post('/saque', [\App\Frontend\Controllers\TransactionController::class, 'withdrawPost']);
 });
 
 
