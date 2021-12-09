@@ -54,6 +54,7 @@ class TransactionController
 
         $result = \Helper::getApiConnection("/transactions/transfer", $data);
 
+
         $newBalance = \Helper::getUserBalance();
 
         $this->showTransferPage($result->message, $newBalance);
