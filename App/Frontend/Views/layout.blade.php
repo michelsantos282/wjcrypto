@@ -19,31 +19,37 @@
                 <header>
                     <div class="jumbotron bg-danger p-3 my-3">
                         <h1>WJCrypto</h1>
+                        @if(isset($_SESSION["acc_number"]))
+                            <span class="my-3">Número da Conta: {{$_SESSION["acc_number"]}}</span><br>
+                            @yield('balance')
+                        @endif
                     </div>
                     @if(isset($_SESSION["acc_number"]))
                         <nav class="nav">
                             <ul class="nav">
                                 <li class="nav-item">
-                                    <a class="nav-link active" aria-current="page" href="#">Principal</a>
+                                    <a class="nav-link" href="/">Principal</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link active" aria-current="page" href="#">Depósito</a>
+                                    <a class="nav-link" href="/deposito">Depósito</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="#">Saque</a>
+                                    <a class="nav-link" href="/saque">Saque</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="#">Transferência</a>
+                                    <a class="nav-link" href="/transferencia">Transferência</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="/logout">Logout</a>
                                 </li>
                             </ul>
                         </nav>
                     @endif
                 </header>
 
-
+            @yield('alert')
             <hr>
             <main>
-                @yield('alert')
                 @yield('content')
             </main>
 

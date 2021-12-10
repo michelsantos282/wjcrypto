@@ -20,7 +20,8 @@
                     <div class="jumbotron bg-danger p-3 my-3">
                         <h1>WJCrypto</h1>
                         <?php if(isset($_SESSION["acc_number"])): ?>
-                            <small class="align-right"><a href="/logout">Logout</a></small>
+                            <small class="align-right"><a href="/logout">Logout</a></small> <br>
+                            <small class="align-right">Número da Conta: <?= $_SESSION["acc_number"] ?></small>
                         <?php endif; ?>
                     </div>
                     <?php if(isset($_SESSION["acc_number"])): ?>
@@ -36,7 +37,7 @@
                                     <a class="nav-link" href="/saque">Saque</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="/transferir">Transferência</a>
+                                    <a class="nav-link" href="/transferencia">Transferência</a>
                                 </li>
                             </ul>
                         </nav>

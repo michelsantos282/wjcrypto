@@ -8,7 +8,6 @@ require_once __DIR__ . "/lib/Helper.php";
 require_once __DIR__ . "/lib/Routes/RoutesApi.php";
 require_once __DIR__ . "/lib/Routes/Routes.php";
 
-
 session_start();
 
 SimpleRouter::start();

@@ -6,10 +6,12 @@ class TransactionController
 {
 
     private $service;
+    private $logger;
 
     public function __construct()
     {
         $this->service = \Helper::getContainer("TransactionService");
+        $this->logger = \Helper::getContainer("LogManager");
     }
 
     public function deposit()
@@ -27,6 +29,7 @@ class TransactionController
             http_response_code($e->getCode());
 
             $message = $e->getMessage();
+            $this->logger->log("Deposit Transaction: $message");
             \Helper::apiResponse($message);
         }
 
@@ -49,6 +52,7 @@ class TransactionController
             http_response_code($e->getCode());
 
             $message = $e->getMessage();
+            $this->logger->log("Withdraw Transaction: $message");
             \Helper::apiResponse($message);
         }
 
@@ -72,6 +76,7 @@ class TransactionController
             http_response_code($e->getCode());
 
             $message = $e->getMessage();
+            $this->logger->log("Transfer Transaction: $message");
             \Helper::apiResponse($message);
         }
 

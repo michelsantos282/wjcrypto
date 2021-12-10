@@ -2,6 +2,8 @@
 
 namespace App\Api\DI;
 
+use App\Api\Logger\LogManager;
+use Monolog\Logger;
 use PDO;
 use DI\Container;
 use DI\ContainerBuilder;
@@ -90,6 +92,16 @@ class Builder
             'Blade' => factory(function () {
                 return new Blade(__DIR__ . '/../../Frontend/Views' , __DIR__ . '/../../Frontend/Views/cache');
             }),
+
+            'Logger' => factory(function () {
+                return new Logger('WjCrypto');
+            }),
+
+            'LogManager' => factory(function (ContainerInterface $c) {
+                return new LogManager($c->get('Logger'));
+            })
+
+
         ]);
 
         return self::$builder->build();

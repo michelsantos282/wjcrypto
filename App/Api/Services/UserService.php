@@ -13,7 +13,7 @@ class UserService
     private IUsersAddressRepository $addressRepository;
 
     public function __construct()
-    {
+    {;
         $this->repository = Helper::getContainer("UsersRepository");
     }
 

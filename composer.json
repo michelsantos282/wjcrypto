@@ -16,6 +16,7 @@
         "pecee/simple-router": "4.3.7.2",
         "php-di/php-di": "^6.3",
         "ext-curl": "*",
-        "jenssegers/blade": "^1.4"
+        "jenssegers/blade": "^1.4",
+        "monolog/monolog": "^2.3"
     }
 }

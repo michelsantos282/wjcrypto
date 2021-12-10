@@ -7,10 +7,12 @@ use Helper;
 class UserController
 {
     private $service;
+    private $logger;
 
     public function __construct()
     {
         $this->service = Helper::getContainer("UsersService");
+        $this->logger = Helper::getContainer("LogManager");
     }
 
     /**
@@ -48,24 +50,13 @@ class UserController
             http_response_code($e->getCode());
 
             $message = $e->getMessage();
+
+            $this->logger->log("Create User: " .$message);
             Helper::apiResponse($message);
         }
 
         http_response_code(201);
         Helper::apiResponse("Usuário criado com sucesso!","acc_number", \Helper::decrypt_data($accNumber));
-    }
-
-    /**
-     * Returns an array of all users in database
-     *
-     * @return array
-     */
-    public function list()
-    {
-        $users = $this->service->getAll();
-
-        http_response_code(200);
-        Helper::apiResponse("Ok", "users", $users);
     }
 
     /**
@@ -88,6 +79,8 @@ class UserController
             http_response_code($e->getCode());
 
             $message = $e->getMessage();
+
+            $this->logger->log("Authenticate User: " .$message);
             Helper::apiResponse($message);
         }
 

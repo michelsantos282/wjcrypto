@@ -239,6 +239,9 @@ use Pecee\Http\Request;
      }
 
 
+     /**
+      * Method return user actual balance
+      */
      public static function getUserBalance()
      {
          if(self::hasSession()) {
@@ -252,15 +255,19 @@ use Pecee\Http\Request;
          }
      }
 
+
+     /**
+      * Method returns all user transactions
+      */
      public static function getUserTransactions()
      {
          if(self::hasSession()) {
              $transaction = self::getContainer('Transaction');
 
-             $transactions = $transaction->selectDataFrom('from_acc', \Helper::encrypt_data($_SESSION['acc_number']));
-
-
-             return  $transactions;
+             return $transaction->selectDataFrom(
+                'from_acc', \
+                Helper::encrypt_data($_SESSION['acc_number'])
+             );
          }
      }
  }

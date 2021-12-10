@@ -104,6 +104,7 @@ class UserController
 
     public function showHomePage(?array $params = null)
     {
+
         $session = \Helper::hasSession();
         if($session) {
             echo $this->view->render('pages/home', [

@@ -16,7 +16,7 @@
 <?php $__env->startSection('content'); ?>
     <h1>Depósito</h1>
 
-    <form>
+    <form action="/deposito" method="post">
         <div class="form-group">
             <label for="">Qual o valor deseja depositar??</label>
             <input type="text" name="amount" class="form-control my-3" placeholder="Valor">
