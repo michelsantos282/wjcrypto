@@ -4,6 +4,10 @@
     <title>Saque</title>
 @endsection
 
+@section('balance')
+    <span>Saldo em Conta: <strong>R${{$balance}}</strong></span>
+@endsection
+
 @if (isset($message))
 @section('alert')
     <div>
@@ -15,7 +19,7 @@
 @section('content')
     <h1>Saque</h1>
 
-    <form>
+    <form action="saque" method="post">
         <div class="form-group">
             <label for="">Qual o valor deseja sacar??</label>
             <small>Saldo disponivel em conta <strong>R$800,00</strong></small>

@@ -1,2 +1,4 @@
 /vendor
 .idea/
+App/Frontend/Views/cache/*
+App/Api/Logger/logs.txt

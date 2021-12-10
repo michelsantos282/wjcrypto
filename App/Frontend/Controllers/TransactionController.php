@@ -46,6 +46,7 @@ class TransactionController
 
     public function transferPost()
     {
+
         $data = [
             'acc_number' => $_SESSION['acc_number'],
             'amount' => filter_input(INPUT_POST, 'amount', FILTER_SANITIZE_STRING),

@@ -13,7 +13,7 @@
 @endif
 
 @section('content')
-    <h1>Logiin</h1>
+    <h1>Login</h1>
 
     <form action="login" method="post">
         <div class="form-group">
