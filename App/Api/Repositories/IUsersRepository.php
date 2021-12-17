@@ -8,6 +8,7 @@ interface IUsersRepository
 {
     public function create(array $validatedData);
     public function getAll();
+    public function searchEncryptDataFrom(string $column, string $value);
     public function searchDataFrom(string $column, string $value);
     public function createToken(string $token, string $accNumber);
 }

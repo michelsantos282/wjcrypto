@@ -31,6 +31,7 @@ class UserController
 
         $result = \Helper::getApiConnection('/users/authenticate', $data);
 
+
         if($result->message == "Authenticated") {
             $_SESSION['acc_number'] = $data['acc_number'];
             $_SESSION['authentication_token'] = $result->auth_token;
@@ -104,6 +105,7 @@ class UserController
 
     public function showHomePage(?array $params = null)
     {
+
 
         $session = \Helper::hasSession();
         if($session) {

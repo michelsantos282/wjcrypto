@@ -26,8 +26,11 @@
                     <h5 class="mb-1">Tipo de Transação: {{$transaction->type}}</h5>
                     <small>{{$transaction->date}}</small>
                 </div>
-                <p class="mb-1">Quantia:<strong>R${{$transaction->amount}}</strong> </p>
-                <p class="mb-1">Quantia: R$1500,00</p>
+                <p class="mb-1">Quantia: <strong>R${{$transaction->amount}} </strong> </p>
+                @if($transaction->type === "Transferencia")
+                    <p class="mb-1">Conta Origem:<strong>R${{$transaction->from_acc}}</strong> </p>
+                    <p class="mb-1">Conta Destino:<strong>R${{$transaction->to_acc}}</strong> </p>
+                @endif
             </div>
         @endforeach
     </div>

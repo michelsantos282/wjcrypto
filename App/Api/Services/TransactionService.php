@@ -53,6 +53,8 @@ class TransactionService
         $userFromAcc = $this->repository->getUser($transferData["acc_number"]);
         $userToAcc = $this->repository->getUser($transferData["to_acc"]);
 
+
+
         if($userFromAcc->acc_number === $userToAcc->acc_number) {
             throw new \Exception("Você não pode realizar uma transferência para você mesmo!", 403);
         }

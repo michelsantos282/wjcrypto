@@ -12,12 +12,12 @@ class TransactionsRepository implements ITransactionsRepository
     {
         $deposit = \Helper::getContainer("Transaction");
 
-        $deposit->setAccNumber(\Helper::encrypt_data($data["acc_number"]));
+        $deposit->setAccNumber($data["acc_number"]);
         $deposit->setAmount($data["amount"]);
-        $deposit->setType("Deposit");
+        $deposit->setType("Deposito");
         $deposit->setDate(date("Y-m-d H:i:s"));
-        $deposit->setFromAcc(\Helper::encrypt_data($data["acc_number"]));
-        $deposit->setToAcc(\Helper::encrypt_data($data["acc_number"]));
+        $deposit->setFromAcc($data["acc_number"]);
+        $deposit->setToAcc($data["acc_number"]);
 
 
         $depositData = [
@@ -40,12 +40,12 @@ class TransactionsRepository implements ITransactionsRepository
     {
         $withdraw = \Helper::getContainer("Transaction");
 
-        $withdraw->setAccNumber(\Helper::encrypt_data($data["acc_number"]));
+        $withdraw->setAccNumber($data["acc_number"]);
         $withdraw->setAmount($data["amount"]);
-        $withdraw->setType("Withdraw");
+        $withdraw->setType("Saque");
         $withdraw->setDate(date("Y-m-d H:i:s"));
-        $withdraw->setFromAcc(\Helper::encrypt_data($data["acc_number"]));
-        $withdraw->setToAcc(\Helper::encrypt_data($data["acc_number"]));
+        $withdraw->setFromAcc($data["acc_number"]);
+        $withdraw->setToAcc($data["acc_number"]);
 
 
         $withdrawData = [
@@ -68,12 +68,12 @@ class TransactionsRepository implements ITransactionsRepository
     {
         $transfer = \Helper::getContainer("Transaction");
 
-        $transfer->setAccNumber(\Helper::encrypt_data($data["acc_number"]));
+        $transfer->setAccNumber($data["acc_number"]);
         $transfer->setAmount($data["amount"]);
         $transfer->setType("Transfer");
         $transfer->setDate(date("Y-m-d H:i:s"));
-        $transfer->setFromAcc(\Helper::encrypt_data($data["acc_number"]));
-        $transfer->setToAcc(\Helper::encrypt_data($data["to_acc"]));
+        $transfer->setFromAcc($data["acc_number"]);
+        $transfer->setToAcc($data["to_acc"]);
 
         $transferData = [
             "acc_number" => $transfer->getAccNumber(),
@@ -97,7 +97,7 @@ class TransactionsRepository implements ITransactionsRepository
     public function getUser(string $acc_number)
     {
         $user = \Helper::getContainer("User");
-        $userData = $user->selectDataFrom("acc_number", \Helper::encrypt_data($acc_number));
+        $userData = $user->selectDataFrom("acc_number", $acc_number);
 
         $user->clearColumnsAndTable();
 

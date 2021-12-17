@@ -90,4 +90,5 @@
         </div>
         <button type="submit" class="btn btn-primary my-3">Cadastrar</button>
     </form>
+    <small class="form-text text-muted">Ja possui uma conta? clique <a href="/">AQUI</a> para se logar</small>
 @endsection

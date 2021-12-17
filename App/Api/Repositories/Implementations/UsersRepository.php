@@ -65,9 +65,19 @@ class UsersRepository implements IUsersRepository
      * @param string $value
      * @return mixed|null
      */
-    public function searchDataFrom(string $column, string $value)
+    public function searchEncryptDataFrom(string $column, string $value)
     {
         $user = $this->user->selectDataFrom($column, Helper::encrypt_data($value));
+
+        if($user) {
+            return $user[0];
+        }
+        return null;
+    }
+
+    public function searchDataFrom(string $column, string $value)
+    {
+        $user = $this->user->selectDataFrom($column, $value);
 
         if($user) {
             return $user[0];

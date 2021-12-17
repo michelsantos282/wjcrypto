@@ -20,7 +20,7 @@ class AuthMiddleware implements IMiddleware
         $authentication_token = $_SESSION['authentication_token'];
 
         if(isset($_SESSION["acc_number"])) {
-            $user = $this->user->selectDataFrom('acc_number', \Helper::encrypt_data($_SESSION["acc_number"]));
+            $user = $this->user->selectDataFrom('acc_number', $_SESSION["acc_number"]);
         }
 
         if(empty($authentication_token) || $authentication_token != $user[0]->auth_token) {

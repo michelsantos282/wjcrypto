@@ -56,7 +56,7 @@ class UserController
         }
 
         http_response_code(201);
-        Helper::apiResponse("Usuário criado com sucesso!","acc_number", \Helper::decrypt_data($accNumber));
+        Helper::apiResponse("Usuário criado com sucesso!","acc_number", $accNumber);
     }
 
     /**

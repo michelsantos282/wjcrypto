@@ -17,8 +17,8 @@
 
     <form action="login" method="post">
         <div class="form-group">
-            <label for="exampleInputEmail1">Email</label>
-            <input type="text" class="form-control my-3" name="acc_number" placeholder="Email">
+            <label for="exampleInputEmail1">Número da Conta</label>
+            <input type="text" class="form-control my-3" name="acc_number" placeholder="Número da Conta">
         </div>
         <div class="form-group">
             <label for="exampleInputPassword1">Senha</label>
@@ -26,5 +26,5 @@
         </div>
         <button type="submit" class="btn btn-primary my-3">Entrar</button>
     </form>
-    <small id="emailHelp" class="form-text text-muted">Não possui uma conta ainda? clique <a href="/cadastro">AQUI</a> para se cadastrar</small>
+    <small class="form-text text-muted">Não possui uma conta ainda? clique <a href="/cadastro">AQUI</a> para se cadastrar</small>
 @endsection

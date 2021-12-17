@@ -26,8 +26,8 @@ class UserService
      */
     public function create(array $userData, array $addressData)
     {
-        $userAcc = $this->repository->searchDataFrom("acc_number", $userData["acc_number"]);
-        $userDoc = $this->repository->searchDataFrom("doc_number", $userData["doc_number"]);
+        $userAcc = $this->repository->searchEncryptDataFrom("acc_number", $userData["acc_number"]);
+        $userDoc = $this->repository->searchEncryptDataFrom("doc_number", $userData["doc_number"]);
 
         if($userAcc || $userDoc) {
             throw new \Exception("Usuario ja cadastrado", 409);
